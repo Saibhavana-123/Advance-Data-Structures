@@ -1,0 +1,39 @@
+#include<stdio.h>
+
+#define INF 9999
+#define Max 10
+
+int main(){
+	int i,j,k,n;
+	int dist[Max][Max];
+	printf("Number of vertices: ");
+	scanf("%d",&n);
+	printf("Enter the adjacency matrix:\n");
+	printf("(Enter %d for INF if there is no direct edge)\n\n",INF);
+	for(i=0;i<n;i++){
+		for(j=0;j<n;j++){
+			printf("Enter value for [%d][%d]: ",i+1,j+1);
+			scanf("%d",&dist[i][j]);
+		}
+		printf("\n");	//Move to next row visually
+	}
+//	Folyd-Warshall's Algorithm
+	for(k=0;k<n;k++){
+		for(i=0;i<n;i++){
+			for(j=0;j<n;j++){
+				if(dist[i][j] > dist[i][k] + dist[k][j])
+					dist[i][j] = dist[i][k] + dist[k][j];
+			}
+		}
+	}
+	printf("\nShortest path matrix:\n\n");
+	for(i=0;i<n;i++){
+		for(j=0;j<n;j++){
+			if(dist[i][j] == INF)
+				printf("INF\t");
+			else
+				printf("%d\t",dist[i][j]);
+		}
+		printf("\n");
+	}
+}
